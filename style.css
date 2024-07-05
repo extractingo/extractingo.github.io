@@ -9,14 +9,14 @@
     
       @font-face {
     font-family: Helvetica;
-    src: url("../../extractingo/Helvetica.ttf") format('truetype');
+    src: url("../../extractingo/Lato-Regular.ttf") format('truetype');
     font-weight: normal;
     font-style: normal;
       }
 
  body {
   font-family: 'Helvetica';
-  font-size: 13px;
+  
  }
 
  .carousel {
