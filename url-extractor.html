@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags -->
+<meta name="description" content="Effortlessly extract URLs from any text or document with Extractingo's URL Extractor tool. Simplify the process of URL extraction for your projects.">
+<meta name="keywords" content="URL extractor, extract URLs, URL extraction tool, extract links, URL scraper">
+<meta name="author" content="El Uthmaaniy">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<!-- Open Graph Meta Tags -->
+<meta property="og:title" content="URL Extractor - Extractingo">
+<meta property="og:description" content="Use Extractingo's URL Extractor tool to extract URLs from any text or document quickly and easily.">
+<meta property="og:image" content="path/to/your/image.jpg">
+<meta property="og:url" content="https://www.extractingo.blogspot.com/url-extractor">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Extractingo">
+<meta property="og:locale" content="en_US">
+
+    <title>URL Extractor - Extractingo</title>
+    <link rel="icon" href=
+"https://res.cloudinary.com/dib5bkbsy/image/upload/v1720193189/icons8-extract-64_aj5foe.png" 
+          type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&display=swap' rel='stylesheet'/>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.21.1/docxtemplater.min.js"></script>
+    
+</head>
+
+<body class="bg-zinc-100">
+
+   <header class="flex items-center justify-between p-4 border-b border-zinc-200">
+    <div class="flex items-center">
+       <img src="https://res.cloudinary.com/dib5bkbsy/image/upload/v1720194053/Add_a_heading_2_hmmlbt.png" alt="Extractingo logo" class="h-10">
+        <span class="bg-green-500 text-white text-sm font-bold ml-2 px-2 py-1 rounded">TINGO</span>
+    </div>
+    <div class="flex items-center space-x-4">
+     
+            <a href="tools.html"><button class="bg-green-500 text-white text-sm font-bold px-2 py-1 rounded-full mr-2">
+                Tools
+            </button></a>
+        <button onclick="toggleMenu()" class="text-zinc-600 focus:outline-none">
+            <i class="fa-solid fa-bars text-green-500 text-2xl"></i>
+        </button>
+    </div>
+</header>
+
+<div id="overlay-menu" class="overlay-menu fixed inset-0 bg-white bg-opacity-90 z-50 p-8">
+    <div class="flex justify-end">
+        <button onclick="toggleMenu()" class="text-zinc-600 focus:outline-none">
+            <i class="fas fa-times text-zinc-600 text-2xl"></i>
+        </button>
+    </div>
+    <nav class="flex flex-col items-center space-y-4 mt-10">
+        <a href="index.html" class="text-2xl text-zinc-600">Home</a>
+        <a href="#" class="text-2xl text-zinc-600">About</a>
+        <a href="#" class="text-2xl text-zinc-600">Login</a>
+        <a href="#" class="text-2xl text-zinc-600">Sign Up</a>
+    </nav>
+</div>
+    <div class="flex flex-col items-center justify-center p-4">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <h1 id="url-extractor-header" class="text-center text-2xl font-semibold mb-2 text-green-500"><i class="fas fa-link mr-2"></i>Upload any file to extract URLs from it</h1>
+            <p id="url-extractor-subheader" class="text-center text-sm text-zinc-600 mb-4">Use this section to extract URLs only. Supported file types: PDF, DOCX, TXT, etc.</p>
+            
+            <div id="upload-section" class="bg-green-500 text-white text-center py-2 rounded-t-lg">
+                <h2 id="upload-file-title" class="font-semibold"><i class="fas fa-file-upload mr-2"></i>Upload File</h2>
+            </div>
+            
+            <div id="file-upload-container" class="border border-green-500 p-4 rounded-b-lg">
+                <input id="url-file-input" type="file" class="block w-full text-sm text-zinc-900 border border-zinc-300 rounded-lg cursor-pointer focus:outline-none focus:border-green-500" />
+            </div>
+            
+            <button id="extract-urls-btn" class="bg-green-500 text-white w-full py-2 mt-4 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"><i class="fas fa-search mr-2"></i>Extract Domain URLs</button>
+            
+            <textarea id="extracted-urls" class="w-full h-32 mt-4 p-2 border border-green-500 rounded-lg" placeholder="Extracted Domain URLs" readonly></textarea>
+            
+            <button id="copy-urls-btn" class="bg-green-500 text-white w-full py-2 mt-4 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"><i class="fas fa-copy mr-2"></i>Copy Extracted URLs</button>
+            
+            <p class="mt-4 text-sm text-center text-zinc-600"><i class="fas fa-info-circle mr-1"></i>Ensure your file contains URLs in readable text format. PDFs and DOCX files are supported for direct extraction.</p>
+        </div>
+    </div>
+
+    <!-- Footer (Assuming you have a footer to include here) -->
+    <!-- Add your footer code here -->
+
+    <script>
+        async function extractFromPDF(file) {
+            const pdf = await pdfjsLib.getDocument(URL.createObjectURL(file)).promise;
+            let text = '';
+
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const content = await page.getTextContent();
+                text += content.items.map(item => item.str).join(' ') + ' ';
+            }
+
+            return text;
+        }
+
+        async function extractFromDOCX(file) {
+            const reader = new FileReader();
+            return new Promise((resolve, reject) => {
+                reader.onload = function (event) {
+                    const zip = new JSZip(event.target.result);
+                    const doc = new docxtemplater().loadZip(zip);
+                    const text = doc.getFullText();
+                    resolve(text);
+                };
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        function extractDomainsFromText(text) {
+            const urlPattern = /https?:\/\/(www\.)?([a-zA-Z0-9.-]+)(\/[a-zA-Z0-9._-]*)?/g;
+            const domains = new Set();
+
+            let match;
+            while ((match = urlPattern.exec(text)) !== null) {
+                domains.add(match[2]);
+            }
+
+            return Array.from(domains).join('\n');
+        }
+
+        async function extractDomainsFromFile() {
+            const fileInput = document.getElementById('url-file-input');
+            const extractedDomainsTextArea = document.getElementById('extracted-urls');
+
+            const file = fileInput.files[0];
+            let text = '';
+
+            if (file.type === 'application/pdf') {
+                text = await extractFromPDF(file);
+            } else if (file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+                text = await extractFromDOCX(file);
+            } else {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    text = event.target.result;
+                    const domains = extractDomainsFromText(text);
+                    extractedDomainsTextArea.value = domains;
+                };
+                reader.readAsText(file);
+                return;
+            }
+
+            const domains = extractDomainsFromText(text);
+            extractedDomainsTextArea.value = domains;
+        }
+
+        function copyResults(textAreaId) {
+            const textArea = document.getElementById(textAreaId);
+            textArea.select();
+            document.execCommand('copy');
+            alert('Results copied to clipboard');
+        }
+
+        document.getElementById('extract-urls-btn').addEventListener('click', extractDomainsFromFile);
+        document.getElementById('copy-urls-btn').addEventListener('click', function() {
+            copyResults('extracted-urls');
+        });
+    </script>
+
+<script>
+  function toggleMenu() {
+            document.getElementById('overlay-menu').classList.toggle('active');
+        }
+ 
+</script>
+<footer class="bg-gray-900 text-white py-10">
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between items-center mb-8">
+      <div id="footer-logo" class="text-white text-2xl font-bold flex items-center space-x-2">
+        <i class="fas fa-envelope"></i>
+        <span>Extractingo</span>
+      </div>
+      <div id="footer-social-icons" class="flex space-x-4">
+        <a href="#" class="text-zinc-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="text-zinc-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="text-zinc-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="text-zinc-400 hover:text-white"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+    <div class="text-sm mb-8">
+      <p id="footer-copyright">
+        © 2023-2024 All Rights Reserved. Extractingo® is a registered trademark of Extractingo Web Services, Inc.
+      </p>
+    </div>
+    <div id="footer-links" class="grid grid-cols-2 md:grid-cols-2 gap-8 text-sm mb-5">
+      <div>
+        <h3 class="text-white font-semibold mb-2">Product</h3>
+        <ul>
+          <li><a href="#" class="hover:text-white">Discover</a></li>
+          <li><a href="#" class="hover:text-white">Extractor</a></li>
+          <li><a href="#" class="hover:text-white">Remover</a></li>
+          <li><a href="#" class="hover:text-white">Segmentor</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold mb-2">Tool</h3>
+        <ul>
+          <li><a href="#" class="hover:text-white">Gmail</a></li>
+          <li><a href="#" class="hover:text-white">Outlook</a></li>
+          <li><a href="#" class="hover:text-white">Yahoo</a></li>
+          <li><a href="#" class="hover:text-white">iCloud</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold mb-2">Company</h3>
+        <ul>
+          <li><a href="#" class="hover:text-white">About us</a></li>
+          <li><a href="#" class="hover:text-white">Careers</a></li>
+          <li><a href="#" class="hover:text-white">Blog</a></li>
+          <li><a href="#" class="hover:text-white">Resources</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold mb-2">Support</h3>
+        <ul>
+          <li><a href="#" class="hover:text-white">Contact us</a></li>
+          <li><a href="#" class="hover:text-white">Help Center</a></li>
+          <li><a href="#" class="hover:text-white">Bug Bounty</a></li>
+          <li class="flex items-center space-x-2">
+            <span class="text-green-500 mt-3">●</span>
+            <a href="#" class="hover:text-white mt-3">All Systems Operational</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="footer-bottom-links" class="flex justify-center space-x-4 text-sm mb-8">
+      <a href="#" class="hover:text-white">Terms</a>
+      <span>•</span>
+      <a href="#" class="hover:text-white">Privacy</a>
+      <span>•</span>
+      <a href="#" class="hover:text-white">Cookies</a>
+      <span>•</span>
+      <a href="#" class="hover:text-white">Security</a>
+    </div>
+    <div id="footer-buttons" class="flex justify-center space-x-4">
+       <button class="bg-white text-gray-800 py-1 px-2 rounded-full hover:bg-zinc-200">Email Extractor</button>
+      <button class="bg-white text-gray-800 py-1 px-2 rounded-full hover:bg-zinc-200">Email Finder</button>
+      <button class="bg-zinc-700 text-white py-1 px-2 rounded-full hover:bg-zinc-600">Email Verifier</button>
+    </div>
+  </div>
+</footer>
+<div class="py-3 text-center bg-gray-800 text-white" id="socket">
+																																					<div class="container mx-auto px-2">
+																																						<p class="credit-content mx-auto my-0 p-2 border-2 border-white rounded-lg inline-block">
+           ©️ 
+																																							<span id="getYear">2024</span> Extractingo
+            
+																																							<svg class="inline-block ml-1 w-4 h-5" viewBox="0 0 24 24">
+																																								<path d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z" fill="#ffffff"/>
+																																							</svg>
+            | All Rights Reserved
+        
+																																						</p>
+																																					</div>
+																																				</div>
+																			
+</body>
+
+</html>
