@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Extractingo</title>
+    <link rel="icon" href=
+"https://res.cloudinary.com/dib5bkbsy/image/upload/v1720193189/icons8-extract-64_aj5foe.png" 
+          type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&display=swap' rel='stylesheet'/>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css' rel='stylesheet'/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100">
+
+     <header class="flex items-center justify-between p-4 border-b border-zinc-200">
+    <div class="flex items-center">
+         <img src="https://res.cloudinary.com/dib5bkbsy/image/upload/v1720194053/Add_a_heading_2_hmmlbt.png" alt="Extractingo logo" class="h-10">
+        <span class="bg-green-500 text-white text-sm font-bold ml-2 px-2 py-1 rounded">TINGO</span>
+    </div>
+    <div class="flex items-center space-x-4">
+     
+            <a href="tools.html"><button class="bg-green-500 text-white text-sm font-bold px-2 py-1 rounded-full mr-2">
+                Tools
+            </button></a>
+        <button onclick="toggleMenu()" class="text-zinc-600 focus:outline-none">
+            <i class="fa-solid fa-bars text-green-500 text-2xl"></i>
+        </button>
+    </div>
+</header>
+
+<div id="overlay-menu" class="overlay-menu fixed inset-0 bg-white bg-opacity-90 z-50 p-8">
+    <div class="flex justify-end">
+        <button onclick="toggleMenu()" class="text-zinc-600 focus:outline-none">
+            <i class="fas fa-times text-zinc-600 text-2xl"></i>
+        </button>
+    </div>
+    <nav class="flex flex-col items-center space-y-4 mt-10">
+        <a href="index.html" class="text-2xl text-zinc-600">Home</a>
+        <a href="#" class="text-2xl text-zinc-600">About</a>
+        <a href="#" class="text-2xl text-zinc-600">Login</a>
+        <a href="#" class="text-2xl text-zinc-600">Sign Up</a>
+    </nav>
+</div>
+
+    <div class="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <div>
+                <h2 class="text-center text-3xl font-extrabold text-green-500">Contact Us</h2>
+                <p class="mt-2 text-center text-sm text-gray-600">
+                    We would love to hear from you! Please fill out the form below.
+                </p>
+            </div>
+            <form class="mt-8 space-y-6" action="https://formspree.io/f/xrgwdren" method="POST">
+                <div class="rounded-md shadow-sm -space-y-px">
+                    <div>
+                        <label for="name" class="sr-only">Name</label>
+                        <input id="name" name="name" type="text" autocomplete="name" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="Name">
+                    </div>
+                    <div>
+                        <label for="email" class="sr-only">Email</label>
+                        <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="Email">
+                    </div>
+                    <div>
+                        <label for="message" class="sr-only">Message</label>
+                        <textarea id="message" name="message" rows="4" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="Message"></textarea>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer (Assuming you have a footer to include here) -->
+    <!-- Add your footer code here -->
+<script>
+      function toggleMenu() {
+            document.getElementById('overlay-menu').classList.toggle('active');
+        }
+ 
+    </script>
+</body>
+</html>
