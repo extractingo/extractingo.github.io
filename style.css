@@ -7,17 +7,17 @@
             display: block;
         }
     
-      body {
-  font-family: 'Helvetica', sans-serif;
-  font-weight:normal;
-  font-style:normal;
-}
-
-@font-face {
+      @font-face {
   font-family: "Helvetica";
-  src: url("/https://github.com/extractingo/extractingo.github.io/blob/main/Helvetica.woff") format("woff"),
-}
- 
+  src: url('https://raw.githubusercontent.com/extractingo/extractingo.github.io/main/Helvetica.woff') format("woff");
+      }
+
+ body {
+  font-family: 'Helvetica', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+ }
+
  .carousel {
   position: relative;
   overflow: hidden;
