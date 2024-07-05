@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Extractingo</title>
+    <link rel="icon" href=
+"https://res.cloudinary.com/dib5bkbsy/image/upload/v1720193189/icons8-extract-64_aj5foe.png" 
+          type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&display=swap' rel='stylesheet'/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-zinc-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6">Sign in to Extractingo</h2>
+        <p class="mb-6 text-zinc-600">Credentials to Login - Email: <strong>user@me.com</strong>, Password: <strong>123456</strong></p>
+        <form id="signin-form">
+            <div class="mb-4">
+                <label for="email" class="block text-zinc-700">Email address</label>
+                <input id="email" type="email" class="w-full p-2 border border-zinc-300 rounded mt-1" required>
+            </div>
+            <div class="mb-4">
+                <label for="password" class="block text-zinc-700">Password</label>
+                <input id="password" type="password" class="w-full p-2 border border-zinc-300 rounded mt-1" required>
+            </div>
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center">
+                    <input id="remember-me" type="checkbox" class="mr-2">
+                    <label for="remember-me" class="text-zinc-700">Remember me</label>
+                </div>
+                <a href="#" class="text-blue-500">Forgot your password?</a>
+            </div>
+            <button id="signin-button" type="submit" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">Sign in</button>
+        </form>
+        
+        <div class="flex items-center my-6">
+            <hr class="flex-grow border-zinc-300">
+            <span class="mx-2 text-zinc-500">or</span>
+            <hr class="flex-grow border-zinc-300">
+        </div>
+        
+        <div class="flex space-x-4">
+            <button id="google-signin" class="flex items-center justify-center w-full p-2 border border-zinc-300 rounded hover:bg-zinc-100">
+                <i class="fab fa-google mr-2"></i> Google
+            </button>
+            <button id="microsoft-signin" class="flex items-center justify-center w-full p-2 border border-zinc-300 rounded hover:bg-zinc-100">
+                <i class="fab fa-microsoft mr-2"></i> Microsoft
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('signin-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            // Get the input values
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Check if the credentials match the demo credentials
+            if (email === 'user@me.com' && password === '123456') {
+                // Redirect to index.html
+                window.location.href = 'tools.html';
+            } else {
+                alert('Invalid credentials. Please use the demo credentials provided.');
+            }
+        });
+    </script>
+</body>
+</html>
