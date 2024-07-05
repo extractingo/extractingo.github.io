@@ -38,9 +38,9 @@
           type="image/x-icon">
        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
-
-    <link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
    
     
 </head>
@@ -433,7 +433,76 @@
         
 																																						</p>
 																																					</div>
-																																				</div>
+<style>
+  body {
+    font-family: lato;
+  }
+</style>
+<style>
+  .lato-regular {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+</style>
+<style>
+  
+        .overlay-menu {
+            display: none;
+            background-color: #fff;
+        }
+        .overlay-menu.active {
+            display: block;
+        }
+    
+
+
+ .carousel {
+  position: relative;
+  overflow: hidden;
+  margin: auto;
+  max-width: 800px; /* Adjust as per your design */
+}
+
+.carousel-item {
+  display: none;
+  text-align: center;
+}
+
+.carousel-item.active {
+  display: block;
+  animation: slideIn 5s ease infinite; /* Adjust animation duration */
+}
+
+@keyframes slideIn {
+  0%, 100% { opacity: 0; }
+  10%, 90% { opacity: 1; }
+}
+
+.testimonial {
+  background-color: #15202b;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-content {
+  text-align: left;
+}
+
+.rating {
+  color: #f39c12; /* Star color */
+  font-size: 20px;
+  margin-top: 8px;
+}
+
+.star {
+  margin-right: 2px;
+}
+  
+  
+</style>																																				</div>
 																								
 
 <script src="script.js"></script>
