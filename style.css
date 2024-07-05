@@ -1,0 +1,57 @@
+
+        .overlay-menu {
+            display: none;
+            background-color: #fff;
+        }
+        .overlay-menu.active {
+            display: block;
+        }
+    
+      body {
+      font-family: helvetica;
+        
+      }
+ 
+ .carousel {
+  position: relative;
+  overflow: hidden;
+  margin: auto;
+  max-width: 800px; /* Adjust as per your design */
+}
+
+.carousel-item {
+  display: none;
+  text-align: center;
+}
+
+.carousel-item.active {
+  display: block;
+  animation: slideIn 5s ease infinite; /* Adjust animation duration */
+}
+
+@keyframes slideIn {
+  0%, 100% { opacity: 0; }
+  10%, 90% { opacity: 1; }
+}
+
+.testimonial {
+  background-color: #15202b;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-content {
+  text-align: left;
+}
+
+.rating {
+  color: #f39c12; /* Star color */
+  font-size: 20px;
+  margin-top: 8px;
+}
+
+.star {
+  margin-right: 2px;
+}
+  
