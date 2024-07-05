@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags -->
+<meta name="description" content="Effortlessly extract email addresses from any text or file with our powerful Email Extractor tool. Simplify your data processing and streamline your workflow.">
+<meta name="keywords" content="email extractor, extract email addresses, data processing, email extraction tool, Extractingo email extractor">
+<meta name="author" content="El Uthmaaniy">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<!-- Open Graph Meta Tags -->
+<meta property="og:title" content="Email Extractor - Extractingo">
+<meta property="og:description" content="Use the Extractingo Email Extractor tool to easily extract email addresses from text or files. Perfect for simplifying your data management tasks.">
+<meta property="og:image" content="path/to/your/image.jpg">
+<meta property="og:url" content="https://www.extractingo.netflify.app/email-extractor">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Extractingo">
+<meta property="og:locale" content="en_US">
+
+    <title>Email Extractor - Extractingo</title>
+    <link rel="icon" href=
+"https://res.cloudinary.com/dib5bkbsy/image/upload/v1720193189/icons8-extract-64_aj5foe.png" 
+          type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&display=swap' rel='stylesheet'/>
+</head>
+
+<body class="bg-white">
+
+    <header class="flex items-center justify-between p-4 border-b border-zinc-200">
+    <div class="flex items-center">
+         <img src="https://res.cloudinary.com/dib5bkbsy/image/upload/v1720194053/Add_a_heading_2_hmmlbt.png" alt="Extractingo logo" class="h-10">
+        <span class="bg-green-500 text-white text-sm font-bold ml-2 px-2 py-1 rounded">TINGO</span>
+    </div>
+    <div class="flex items-center space-x-4">
+     
+            <a href="tools.html"><button class="bg-green-500 text-white text-sm font-bold px-2 py-1 rounded-full mr-2">
+                Tools
+            </button></a>
+        <button onclick="toggleMenu()" class="text-zinc-600 focus:outline-none">
+            <i class="fa-solid fa-bars text-green-500 text-2xl"></i>
+        </button>
+    </div>
+</header>
+
+<div id="overlay-menu" class="overlay-menu fixed inset-0 bg-white bg-opacity-90 z-50 p-8">
+    <div class="flex justify-end">
+        <button onclick="toggleMenu()" class="text-zinc-600 focus:outline-none">
+            <i class="fas fa-times text-zinc-600 text-2xl"></i>
+        </button>
+    </div>
+    <nav class="flex flex-col items-center space-y-4 mt-10">
+        <a href="index.html" class="text-2xl text-zinc-600">Home</a>
+        <a href="#" class="text-2xl text-zinc-600">About</a>
+        <a href="#" class="text-2xl text-zinc-600">Login</a>
+        <a href="#" class="text-2xl text-zinc-600">Sign Up</a>
+    </nav>
+</div>
+
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+            <h2 id="email-extractor-header" class="text-center text-2xl font-semibold mb-4 text-green-500"><i class="fas fa-envelope mr-2"></i>Use this section to extract email addresses only</h2>
+            <p id="email-extractor-subheader" class="text-center text-lg mb-6 text-zinc-600">Upload CSV, TXT, and other files to extract email addresses from it.</p>
+            <div>
+                <h3 id="upload-email-file-title" class="text-xl font-bold mb-2 text-green-500"><i class="fas fa-file-upload mr-2"></i>Upload File</h3>
+                <input id="email-file-input" type="file" class="w-full border border-zinc-300 p-2 mb-4" />
+                <button id="extract-emails-btn" class="w-full bg-green-500 text-white p-2 mb-4 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"><i class="fas fa-download mr-2"></i>Extract Emails from File</button>
+                
+                <textarea id="pure-emails" class="w-full border border-zinc-300 p-2 mb-4 rounded-lg" rows="4" placeholder="Extracted pure emails"></textarea>
+                <button id="copy-pure-emails-btn" class="w-full bg-green-500 text-white p-2 mb-4 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"><i class="fas fa-copy mr-2"></i>Copy Pure Emails</button>
+                
+                <textarea id="domain-emails" class="w-full border border-zinc-300 p-2 mb-4 rounded-lg" rows="4" placeholder="Extracted domain emails"></textarea>
+                <button id="copy-domain-emails-btn" class="w-full bg-green-500 text-white p-2 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"><i class="fas fa-copy mr-2"></i>Copy Domain Emails</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Existing footer code here -->
+
+    <script>
+        function extractEmails(text, pureEmailsTextArea, domainEmailsTextArea) {
+            // Regular expressions to match email patterns
+            var emailPattern = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g;
+            var domainPattern = /(\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b)/g;
+
+            var pureEmails = (text.match(emailPattern) || []).filter(email => {
+                return /@(gmail|yahoo|outlook|icloud|hotmail)\.com$/.test(email);
+            });
+
+            var domainEmails = (text.match(domainPattern) || []).filter(email => {
+                var domainPrefixes = ['support@', 'info@', 'help@', 'sales@', 'contact@', 'hello@']; // Add more prefixes as needed
+                for (var i = 0; i < domainPrefixes.length; i++) {
+                    if (email.startsWith(domainPrefixes[i])) {
+                        return true;
+                    }
+                }
+                return false;
+            });
+
+            pureEmailsTextArea.value = pureEmails.join('\n');
+            domainEmailsTextArea.value = domainEmails.join('\n');
+        }
+
+        function copyResults(textAreaId) {
+            var textArea = document.getElementById(textAreaId);
+            textArea.select();
+            document.execCommand('copy');
+            alert('Results copied to clipboard');
+        }
+
+        function extractFromFile() {
+            var fileInput = document.getElementById('email-file-input');
+            var pureEmailsTextArea = document.getElementById('pure-emails');
+            var domainEmailsTextArea = document.getElementById('domain-emails');
+
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var content = e.target.result;
+                extractEmails(content, pureEmailsTextArea, domainEmailsTextArea);
+            };
+
+            reader.readAsText(file);
+        }
+
+        function copyResultsFromFile() {
+            copyResults('pure-emails');
+            copyResults('domain-emails');
+        }
+
+        document.getElementById('extract-emails-btn').addEventListener('click', function() {
+            extractFromFile();
+        });
+
+        document.getElementById('copy-pure-emails-btn').addEventListener('click', function() {
+            copyResults('pure-emails');
+        });
+
+        document.getElementById('copy-domain-emails-btn').addEventListener('click', function() {
+            copyResults('domain-emails');
+        });
+    </script>
+    
+    <script>
+      function toggleMenu() {
+            document.getElementById('overlay-menu').classList.toggle('active');
+        }
+ 
+    </script>
+    <footer class="bg-gray-900 text-white py-10">
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between items-center mb-8">
+      <div id="footer-logo" class="text-white text-2xl font-bold flex items-center space-x-2">
+        <i class="fas fa-envelope"></i>
+        <span>Extractingo</span>
+      </div>
+      <div id="footer-social-icons" class="flex space-x-4">
+        <a href="#" class="text-zinc-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="text-zinc-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="text-zinc-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="text-zinc-400 hover:text-white"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+    <div class="text-sm mb-8">
+      <p id="footer-copyright">
+        © 2023-2024 All Rights Reserved. Extractingo® is a registered trademark of Extractingo Web Services, Inc.
+      </p>
+    </div>
+    <div id="footer-links" class="grid grid-cols-2 md:grid-cols-2 gap-8 text-sm mb-5">
+      <div>
+        <h3 class="text-white font-semibold mb-2">Product</h3>
+        <ul>
+          <li><a href="#" class="hover:text-white">Discover</a></li>
+          <li><a href="#" class="hover:text-white">Extractor</a></li>
+          <li><a href="#" class="hover:text-white">Remover</a></li>
+          <li><a href="#" class="hover:text-white">Segmentor</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold mb-2">Tool</h3>
+        <ul>
+          <li><a href="#" class="hover:text-white">Gmail</a></li>
+          <li><a href="#" class="hover:text-white">Outlook</a></li>
+          <li><a href="#" class="hover:text-white">Yahoo</a></li>
+          <li><a href="#" class="hover:text-white">iCloud</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold mb-2">Company</h3>
+        <ul>
+          <li><a href="#" class="hover:text-white">About us</a></li>
+          <li><a href="#" class="hover:text-white">Careers</a></li>
+          <li><a href="#" class="hover:text-white">Blog</a></li>
+          <li><a href="#" class="hover:text-white">Resources</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold mb-2">Support</h3>
+        <ul>
+          <li><a href="#" class="hover:text-white">Contact us</a></li>
+          <li><a href="#" class="hover:text-white">Help Center</a></li>
+          <li><a href="#" class="hover:text-white">Bug Bounty</a></li>
+          <li class="flex items-center space-x-2">
+            <span class="text-green-500 mt-3">●</span>
+            <a href="#" class="hover:text-white mt-3">All Systems Operational</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="footer-bottom-links" class="flex justify-center space-x-4 text-sm mb-8">
+      <a href="#" class="hover:text-white">Terms</a>
+      <span>•</span>
+      <a href="#" class="hover:text-white">Privacy</a>
+      <span>•</span>
+      <a href="#" class="hover:text-white">Cookies</a>
+      <span>•</span>
+      <a href="#" class="hover:text-white">Security</a>
+    </div>
+    <div id="footer-buttons" class="flex justify-center space-x-4">
+       <button class="bg-white text-gray-800 py-1 px-2 rounded-full hover:bg-zinc-200">Email Extractor</button>
+      <button class="bg-white text-gray-800 py-1 px-2 rounded-full hover:bg-zinc-200">Email Finder</button>
+      <button class="bg-zinc-700 text-white py-1 px-2 rounded-full hover:bg-zinc-600">Email Verifier</button>
+    </div>
+  </div>
+</footer>
+<div class="py-3 text-center bg-gray-800 text-white" id="socket">
+																																					<div class="container mx-auto px-2">
+																																						<p class="credit-content mx-auto my-0 p-2 border-2 border-white rounded-lg inline-block">
+           ©️ 
+																																							<span id="getYear">2024</span> Extractingo
+            
+																																							<svg class="inline-block ml-1 w-4 h-5" viewBox="0 0 24 24">
+																																								<path d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z" fill="#ffffff"/>
+																																							</svg>
+            | All Rights Reserved
+        
+																																						</p>
+																																					</div>
+																																				</div>
+																			
+</body>
+
+</html>
