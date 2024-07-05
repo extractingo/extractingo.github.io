@@ -8,14 +8,14 @@
         }
     
       @font-face {
-    font-family: Helvetica;
+    font-family: Lato;
     src: url("../../extractingo/Lato-Regular.ttf") format('truetype');
     font-weight: normal;
     font-style: normal;
       }
 
  body {
-  font-family: 'Helvetica';
+  font-family: 'Lato';
   
  }
 
