@@ -25,7 +25,7 @@
           type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&display=swap' rel='stylesheet'/>
+    <link href='https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&display=swap' rel='stylesheet'/>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.21.1/docxtemplater.min.js"></script>
@@ -88,7 +88,23 @@
 
     <!-- Footer (Assuming you have a footer to include here) -->
     <!-- Add your footer code here -->
+<style>
+  body {
+    font-family: Google Sans;
+  }
+</style>
 
+
+<style>
+  
+        .overlay-menu {
+            display: none;
+            background-color: #fff;
+        }
+        .overlay-menu.active {
+            display: block;
+        }
+   </style> 
     <script>
         async function extractFromPDF(file) {
             const pdf = await pdfjsLib.getDocument(URL.createObjectURL(file)).promise;
