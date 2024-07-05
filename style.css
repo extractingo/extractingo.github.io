@@ -8,9 +8,15 @@
         }
     
       body {
-      font-family: Helevetica;
-        
-      }
+  font-family: 'Helvetica', sans-serif;
+  font-weight:normal;
+  font-style:normal;
+}
+
+@font-face {
+  font-family: "Some font";
+  src: url("/helvetica.woff") format("woff"),
+}
  
  .carousel {
   position: relative;
